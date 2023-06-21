@@ -21,12 +21,12 @@ function App() {
       const currentTime = dayjs();
       const targetTime = dayjs(`${targetYear}-01-01`);
 
-      const duration = dayjs.duration(targetTime.diff(currentTime));
+      const durationObj = dayjs.duration(targetTime.diff(currentTime));
 
-      const days = Math.floor(duration.asDays()); // Bulatkan jumlah hari ke bawah
-      const hours = duration.hours();
-      const minutes = duration.minutes();
-      const seconds = duration.seconds();
+      const days = Math.floor(durationObj.asDays()); // Bulatkan jumlah hari ke bawah
+      const hours = durationObj.hours();
+      const minutes = durationObj.minutes();
+      const seconds = durationObj.seconds();
 
       setCountdown({
         days,
@@ -37,44 +37,52 @@ function App() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [targetYear]);
 
   return (
-    <div style={{ 
-      backgroundImage: "url('peakpx.jpg')",
-      height: "100vh",
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    }}>
-       <div className="container mx-auto text-center">
-      <h1 className="text-4xl font-bold pt-10 mb-5 text-gray-900">Menuju Tahun {targetYear}</h1>
-      <div className="flex gap-5 flex justify-center mt-60">
-        <div className='text-gray-900'>
-          <span className="countdown font-mono text-6xl text-gray-900">
-          {countdown.days}
-          </span>
-          days
-        </div> 
-        <div className='text-gray-900'>
-          <span className="countdown font-mono text-6xl text-gray-900">
-              <span style={{ '--value': countdown.hours }}></span>
-          </span>
-          hours
-        </div> 
-        <div className='text-gray-900'>
-          <span className="countdown font-mono text-6xl text-gray-900">
-            <span style={{ '--value': countdown.minutes }}></span>
-          </span>
-          min
-        </div> 
-        <div className='text-gray-900'>
-          <span className="countdown font-mono text-6xl text-gray-900">
-            <span style={{ '--value': countdown.seconds }}></span>
-          </span>
-          sec
+    <div
+      style={{
+        backgroundImage: "url('peakpx.jpg')",
+        height: '100vh',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      <div className="container mx-auto text-center">
+        <h1 className="text-4xl font-bold pt-10 mb-5 text-gray-900">
+          Menuju Tahun {targetYear}
+        </h1>
+        <div className="flex gap-5 flex justify-center mt-60">
+          <div className="text-gray-900">
+            <span className="countdown font-mono text-6xl text-gray-900">
+              {countdown.days}
+            </span>
+            days
+          </div>
+          <div className="text-gray-900">
+            <span className="countdown font-mono text-6xl text-gray-900">
+              <span style={{ '--value': countdown.hours }}>{countdown.hours}</span>
+            </span>
+            hours
+          </div>
+          <div className="text-gray-900">
+            <span className="countdown font-mono text-6xl text-gray-900">
+              <span style={{ '--value': countdown.minutes }}>
+                {countdown.minutes}
+              </span>
+            </span>
+            min
+          </div>
+          <div className="text-gray-900">
+            <span className="countdown font-mono text-6xl text-gray-900">
+              <span style={{ '--value': countdown.seconds }}>
+                {countdown.seconds}
+              </span>
+            </span>
+            sec
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
